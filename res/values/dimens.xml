@@ -1,0 +1,9 @@
+<resources>
+
+	<dimen name="padding_small_small">15dp</dimen>
+	<dimen name="padding_small">17dp</dimen>
+	<dimen name="padding_medium">35dp</dimen>
+	<dimen name="padding_large">50dp</dimen>
+	<dimen name="title_size">50sp</dimen>
+
+</resources>

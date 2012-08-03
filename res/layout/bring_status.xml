@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="fill_parent"
+	android:layout_marginTop="@dimen/padding_small"
+	android:background="@drawable/border"
+	android:orientation="horizontal" >
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+
+		<TextView
+			style="@style/status_text"
+			android:text="@string/bring_HP" />
+
+		<TextView
+			style="@style/status_text"
+						android:text="@string/bring_power" />
+
+		<TextView
+			style="@style/status_text"
+						android:text="@string/bring_quickness" />
+
+		<TextView
+			style="@style/status_text"
+			android:text="@string/bring_kind" />
+
+		<TextView
+			style="@style/status_text"
+			android:text="@string/bring_stomach_gauge" />
+
+		<TextView
+			style="@style/status_text"
+			android:text="@string/bring_luck" />
+
+		<TextView
+			style="@style/status_text"
+			android:text="@string/bring_life" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+
+		<TextView
+			android:id="@+id/strength_change"
+			android:layout_gravity="center"
+			style="@style/viewPadding"
+			 />
+
+		<TextView
+			android:id="@+id/power_change"
+			style="@style/viewPadding"
+			android:layout_gravity="center"
+			 />
+
+		<TextView
+			android:id="@+id/quickness_change"
+			style="@style/viewPadding"
+			android:layout_gravity="center"
+			 />
+
+		<TextView
+			android:id="@+id/kind_change"
+			style="@style/viewPadding"
+			android:layout_gravity="center"
+			 />
+
+		<TextView
+			android:id="@+id/stomach_gauge_change"
+			style="@style/viewPadding"
+			android:layout_gravity="center"
+			 />
+
+		<TextView
+			android:id="@+id/luck_change"
+			style="@style/viewPadding"
+			android:layout_gravity="center"
+			 />
+
+		<TextView
+			android:id="@+id/life_change"
+			style="@style/viewPadding"
+			android:layout_gravity="center"
+			 />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+
+		<TextView
+			android:id="@+id/strength"
+			style="@style/viewPadding"
+			android:text="0" />
+
+		<TextView
+			android:id="@+id/power"
+			style="@style/viewPadding"
+			android:text="0" />
+
+		<TextView
+			android:id="@+id/quickness"
+			style="@style/viewPadding"
+			android:text="0" />
+
+		<TextView
+			android:id="@+id/kind"
+			style="@style/viewPadding"
+			android:text="0" />
+
+		<TextView
+			android:id="@+id/stomach_gauge"
+			style="@style/viewPadding"
+			android:text="0" />
+
+		<TextView
+			android:id="@+id/luck"
+			style="@style/viewPadding"
+			android:text="0" />
+
+		<TextView
+			android:id="@+id/life"
+			style="@style/viewPadding"
+			android:text="0" />
+	</LinearLayout>
+
+</LinearLayout>

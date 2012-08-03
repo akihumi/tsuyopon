@@ -1,0 +1,26 @@
+<resources>
+
+	<string name="app_name">TsuyoponMonster</string>
+	<string name="menu_settings">Settings</string>
+	<string name="title_activity_title">つよぽん</string>
+	<string name="title_title">ツ  ヨ  ポ  ン</string>
+		<string name="title_start">初めから</string>
+	<string name="title_continue">続きから</string>
+	<string name="title_battle">通信対戦</string>
+	<string name="bring_HP">HP:</string>
+	<string name="bring_quickness">すばやさ:</string>
+	<string name="bring_power">こうげき:</string>
+	<string name="bring_kind">なつき度:</string>
+	<string name="bring_stomach_gauge">まんぷく度:</string>
+	<string name="bring_luck">運:</string>
+	<string name="bring_life">ねんれい:</string>
+	<string name="bring_run">走る</string>
+	<string name="bring_mascle_training">筋トレ</string>
+	<string name="bring_doping">ドーピング</string>
+	<string name="bring_praise">ほめる</string>
+	<string name="bring_bait">エサをあげる</string>
+	<string name="bring_sleep">ねむる</string>
+	<string name="yes">はい</string>
+	<string name="no">いいえ</string>
+
+</resources>

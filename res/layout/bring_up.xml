@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/FrameLayout1"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#00ff00" >
+
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:orientation="horizontal" >
+
+        <LinearLayout
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:orientation="vertical" >
+
+            <LinearLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="2"
+            	android:orientation="horizontal" >
+
+            	<include
+            		layout="@layout/bring_up_image_name" />
+
+            	<include layout="@layout/bring_status" />
+            </LinearLayout>
+
+            <TextView
+            	android:id="@+id/bring_textview"
+            	android:layout_width="fill_parent"
+            	android:layout_height="66dp"
+            	android:layout_marginTop="@dimen/padding_small_small"
+            	android:layout_marginLeft="@dimen/padding_small_small"
+            	android:layout_marginBottom="@dimen/padding_small_small"
+            	android:background="@drawable/border"
+            	android:textColor="#ffffff" >
+
+            </TextView>
+</LinearLayout>
+
+        <include layout="@layout/bring_up_side_button" />
+
+            </LinearLayout>
+
+</FrameLayout>

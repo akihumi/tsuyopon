@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#00ff00"
+	android:orientation="vertical" >
+
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:weightSum="1" >
+
+        <ImageView
+        	android:id="@+id/birth_imageView"
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	android:src="@drawable/kimokawa" />
+
+        <LinearLayout
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:orientation="vertical" >
+
+            <Button
+            	android:id="@+id/birth_monstername"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_marginBottom="12dp"
+            	android:layout_weight="1"
+            	android:background="@drawable/title_button_frame"
+            	android:hint="つよぽん"
+            	android:onClick="click"
+            	android:textColor="#000000"
+            	android:textSize="@dimen/padding_large" />
+
+        	<Button
+        		android:id="@+id/birth_yes"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:onClick="click"
+        		android:text="この名前にする" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+    	android:id="@+id/dummy_birth_text_view"
+    	android:layout_width="fill_parent"
+    	android:layout_height="66dp"
+    	android:background="@drawable/border"
+    	android:text="Large Text"
+    	android:textColor="#ffffff" />
+
+<!--     	android:layout_gravity="1" -->
+    
+</LinearLayout>

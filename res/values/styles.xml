@@ -1,0 +1,76 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<style name="AppTheme" parent="android:Theme.Light" />
+
+	<style name="title_button">
+		<item name="android:layout_width">160dp</item>
+		<item name="android:layout_height">53dp</item>
+		<item name="android:layout_gravity">right</item>
+		<item name="android:layout_marginBottom">17dp</item>
+		<item name="android:layout_marginRight">17dp</item>
+		<item name="android:textSize">30sp</item>
+	</style>
+
+	<style name="viewPadding">
+		<item name="android:paddingLeft">20dp</item>
+		<item name="android:paddingTop">3dp</item>
+		<item name="android:paddingRight">3dp</item>
+		<item name="android:paddingBottom">2dp</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">#ffffff</item>
+
+	</style>
+	
+	<style name="status_text">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">right</item>
+		<item name="android:textColor">#ffffff</item>
+		<item name="android:paddingLeft">3dp</item>
+		<item name="android:paddingTop">3dp</item>
+		<item name="android:paddingRight">3dp</item>
+		<item name="android:paddingBottom">2dp</item>
+	</style>
+	<style name="bring_button">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/bring_button_frame</item>
+		<item name="android:textColor">#ffffff</item>
+		<item name="android:textSize">15sp</item>
+		<item name="android:layout_marginBottom">10dp</item>
+	</style>
+	<style name="bring_up_side_button">
+		<item name="android:layout_width">177dp</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_marginTop">15dp</item>
+		<item name="android:layout_marginLeft">10dp</item>"
+		<item name="android:layout_marginRight">10dp</item>"
+	</style>
+
+	<style name="dead_button">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/bring_button_frame</item>
+		<item name="android:textColor">#ffffff</item>
+		<item name="android:layout_marginBottom">6dp</item>
+		<item name="android:paddingRight">30dp</item>
+		<item name="android:paddingLeft">30dp</item>
+		<item name="android:textSize">15sp</item>
+	</style>
+	<style name="dead_text">
+		<item name="android:layout_width">467dp</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_marginBottom">17dp</item>
+		<item name="android:layout_marginLeft">33dp</item>
+		<item name="android:layout_weight">5</item>
+		<item name="android:background">@drawable/border</item>
+		<item name="android:textColor">#ffffff</item>
+	</style>
+	<style name="dead_imageview">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">center</item>
+		<item name="android:layout_marginRight">33dp</item>
+	</style>
+</resources>

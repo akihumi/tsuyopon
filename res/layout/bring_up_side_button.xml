@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/bring_up_side_button"
+	android:orientation="vertical" >
+
+	<Button
+		android:id="@+id/bring_running"
+		style="@style/bring_button"
+		android:onClick="bringClickButton"
+		android:text="@string/bring_run" />
+
+	<Button
+		android:id="@+id/bring_weight_training"
+		style="@style/bring_button"
+		android:onClick="bringClickButton"
+		android:text="@string/bring_mascle_training" />
+
+	<Button
+		android:id="@+id/bring_sleeping"
+		style="@style/bring_button"
+		android:onClick="bringClickButton"
+		android:text="@string/bring_sleep" />
+
+	<Button
+		android:id="@+id/bring_doping"
+		style="@style/bring_button"
+		android:onClick="bringClickButton"
+		android:text="@string/bring_doping" />
+
+	<Button
+		android:id="@+id/bring_praise"
+		style="@style/bring_button"
+		android:onClick="bringClickButton"
+		android:text="@string/bring_praise" />
+
+	<Button
+		android:id="@+id/bring_meal"
+		style="@style/bring_button"
+		android:onClick="bringClickButton"
+		android:text="@string/bring_bait" />
+
+</LinearLayout>

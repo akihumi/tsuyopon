@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<array name="monster_image">
+		<item>@drawable/id_01</item>
+		<item>@drawable/id_02</item>
+		<item>@drawable/id_03</item>
+		<item>@drawable/id_04</item>
+		<item>@drawable/id_05</item>
+		<item>@drawable/id_06</item>
+		<item>@drawable/id_07</item>
+		<item>@drawable/id_08</item>
+		<item>@drawable/id_09</item>
+		<item>@drawable/id_10</item>
+		<item>@drawable/id_11</item>
+		<item>@drawable/id_12</item>
+		<item>@drawable/id_13</item>
+		<item>@drawable/id_14</item>
+</array>
+
+</resources>
