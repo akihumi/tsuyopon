@@ -37,7 +37,7 @@ public class Title extends Activity {
         Intent i;
         switch (v.getId()) {
             case R.id.toStart:
-                i = new Intent(this, Birth.class);
+                i = new Intent(this, BirthAnime.class);
                 startActivity(i);
                 break;
             case R.id.toContinue:

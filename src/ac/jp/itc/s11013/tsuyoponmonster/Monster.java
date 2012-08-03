@@ -7,7 +7,9 @@ import java.util.Random;
 
 import android.graphics.drawable.Drawable;
 
-public class Monster implements Serializable{
+// モンスターネームとステータスを保持するクラス.
+// intentにputExtraするためSerializableクラスを実装してる
+public class Monster implements Serializable {
     /**
      * しりあるばーじょんうーあいでぃー
      */
@@ -24,14 +26,14 @@ public class Monster implements Serializable{
             stomach_gauge, luck, life;
     private Random rand;
     private String monster_name;
-//    private Drawable monster_image;
+    //    private Drawable monster_image;
     private boolean death_flag;
 
     public Monster(String name) {
         // 名前が入力されていなければ初期化。。。つかうかどうかわからない
-                if (name.equals("") || name == null) {
-                    name = "ななしポン";
-                }
+        if (name.equals("") || name == null) {
+            name = "ななしポン";
+        }
         death_flag = false;
         monster_name = name;
         rand = new Random();
@@ -45,10 +47,11 @@ public class Monster implements Serializable{
         kind = 30;
         stomach_gauge = 50;
         // モンスターの画像を決定する
-//        monster_image = image;
+        //        monster_image = image;
 
     }
 
+    // ステータスをHashmapで返す
     public HashMap<String, Integer> getStatusList() {
         HashMap<String, Integer> status = new HashMap<String, Integer>();
         status.put(STATUS_STRENGTH, strength);
@@ -65,48 +68,53 @@ public class Monster implements Serializable{
         return monster_name;
     }
 
-//    public Drawable getImage() {
-//        return monster_image;
-//    }
-
+    // 走る（速＋５、体ー１〜２, なつき - 2, 満腹度−５, 寿命＋2）
     public void running() {
         quickness = (quickness + 5 >= STATUS_MAX) ? STATUS_MAX : quickness + 5;
         strength = (strength - 2 <= STATUS_MIN) ? STATUS_MIN : strength - (rand.nextInt(2) + 1);
-        stomach_gauge = (stomach_gauge + 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
+        stomach_gauge = (stomach_gauge - 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
+        kind = (kind - 2 <= STATUS_MIN) ? STATUS_MIN : kind - 2;
         life = (life + 2 >= STATUS_MAX) ? STATUS_MAX : life + 2;
         setDeathFlag();
     }
 
+    // 筋トレ（攻＋５、速ー１〜２, なつき - 2, 満腹度−５, 寿命＋2）
     public void weightTraining() {
         power = (power + 5 >= STATUS_MAX) ? STATUS_MAX : power + 5;
         quickness = (quickness + 2 <= STATUS_MIN) ? STATUS_MIN : quickness - (rand.nextInt(2) + 1);
-        stomach_gauge = (stomach_gauge + 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
+        stomach_gauge = (stomach_gauge - 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
+        kind = (kind - 2 <= STATUS_MIN) ? STATUS_MIN : kind - 2;
         life = (life + 2 >= STATUS_MAX) ? STATUS_MAX : life + 2;
         setDeathFlag();
     }
 
+    // 寝る（体＋５、攻ー１〜２, なつき - 2, 満腹度−５, 寿命＋2）
     public void sleeping() {
         strength = (strength + 5 >= STATUS_MAX) ? STATUS_MAX : strength + 5;
         power = (power - 2 <= STATUS_MIN) ? STATUS_MIN : power - (rand.nextInt(2) + 1);
-        stomach_gauge = (stomach_gauge + 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
+        stomach_gauge = (stomach_gauge - 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
+        kind = (kind - 2 <= STATUS_MIN) ? STATUS_MIN : kind - 2;
         life = (life + 2 >= STATUS_MAX) ? STATUS_MAX : life + 2;
         setDeathFlag();
     }
 
+    // 食事（満腹度＋２５、なつき度＋５, 寿命＋2）
     public void meal() {
-        stomach_gauge = (stomach_gauge + 20 >= STATUS_MAX) ? STATUS_MAX : stomach_gauge + 20;
+        stomach_gauge = (stomach_gauge + 25 >= STATUS_MAX) ? STATUS_MAX : stomach_gauge + 25;
         kind = (kind + 5 >= STATUS_MAX) ? STATUS_MAX : kind + 5;
-        life = (life + 5 >= STATUS_MAX) ? STATUS_MAX : life + 2;
+        life = (life + 2 >= STATUS_MAX) ? STATUS_MAX : life + 2;
         setDeathFlag();
     }
 
+    // 褒める（なつき度＋２０, 満腹度−５, 寿命＋2）
     public void praise() {
         kind = (kind + 20 >= STATUS_MAX) ? STATUS_MAX : kind + 20;
-        stomach_gauge = (stomach_gauge + 5 <= STATUS_MIN) ? STATUS_MIN :stomach_gauge - 5;
+        stomach_gauge = (stomach_gauge - 5 <= STATUS_MIN) ? STATUS_MIN : stomach_gauge - 5;
         life = (life + 2 >= STATUS_MAX) ? STATUS_MAX : life + 2;
         setDeathFlag();
     }
 
+    // ドーピング（ランダム(攻 | 体 | 速 | 運)＋２０、寿命＋５〜２０）
     public void doping() {
         switch (rand.nextInt(5)) {
             case 0:

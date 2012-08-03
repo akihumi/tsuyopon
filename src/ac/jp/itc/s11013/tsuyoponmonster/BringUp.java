@@ -25,7 +25,7 @@ public class BringUp extends Activity {
     private String monster_name;
     private TextView strength, power, quickness, kind, stomach_gauge, luck, life,
             strength_change, power_change, quickness_change, kind_change,
-            stomach_gauge_change, life_change, bring_textview,
+            stomach_gauge_change, luck_change, life_change, bring_textview,
             bring_monster_name;
     private Bitmap bmp;
 
@@ -63,6 +63,7 @@ public class BringUp extends Activity {
         power_change = (TextView) findViewById(R.id.power_change);
         quickness_change = (TextView) findViewById(R.id.quickness_change);
         kind_change = (TextView) findViewById(R.id.kind_change);
+        luck_change = (TextView) findViewById(R.id.luck_change);
         stomach_gauge_change = (TextView) findViewById(R.id.stomach_gauge_change);
         // いらなかった
         //        luck_change = (TextView) findViewById(R.id.luck_change);
@@ -70,7 +71,7 @@ public class BringUp extends Activity {
         // メッセージ出す奴
         bring_textview = (TextView) findViewById(R.id.bring_textview);
         // モンスターの画像と名前を入れる
-//        bring_monster_image.setImageDrawable(tsuyopon.getImage());
+        //        bring_monster_image.setImageDrawable(tsuyopon.getImage());
         bring_monster_image.setImageBitmap(bmp);
         bring_monster_name.setText(new StringBuilder("もんすたー名: ")
                 .append(tsuyopon.getName()).toString());
@@ -143,15 +144,16 @@ public class BringUp extends Activity {
                 bring_textview.setText(message.append("にエサをあげた！").toString());
                 break;
         }
-        if(tsuyopon.isDeath()){
+        if (tsuyopon.isDeath()) {
             Intent i = new Intent(this, Dead.class);
-             // バイト配列に変換する
+            // バイト配列に変換する
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] b = baos.toByteArray();
             i.putExtra("image", b);
             i.putExtra("monster", tsuyopon);
             startActivity(i);
+            finish();
         }
     }
 
@@ -187,6 +189,10 @@ public class BringUp extends Activity {
                         - status.get(Monster.STATUS_STOMACH_GAUGE))
                 .toString().replace("+0", " "));
 
+        luck_change.setText(String.format("%1$+d",
+                changed.get(Monster.STATUS_LUCK)
+                        - status.get(Monster.STATUS_LUCK)).toString().replace("+0", " "));
+
         life_change.setText(String.format("%1$+d",
                 changed.get(Monster.STATUS_LIFE)
                         - status.get(Monster.STATUS_LIFE))
@@ -201,6 +207,7 @@ public class BringUp extends Activity {
         kind_change.setText("  ");
         stomach_gauge_change.setText("  ");
         life_change.setText("  ");
+        luck_change.setText("  ");
     }
 
     private void updateStatus(HashMap<String, Integer> changed) {

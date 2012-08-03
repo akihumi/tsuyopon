@@ -24,6 +24,8 @@
 		<activity android:name="Birth" android:screenOrientation="landscape"></activity>
 		<activity android:name="PreparationForBattle" android:screenOrientation="landscape"></activity>
 		<activity android:name="Dead" android:screenOrientation="landscape"></activity>
+		<activity android:name="SaveMonster" android:screenOrientation="landscape"></activity>
+		<activity android:name="BirthAnime" android:screenOrientation="landscape"></activity>
 	</application>
 
 </manifest>

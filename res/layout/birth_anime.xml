@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_layout"
+    android:layout_width="800px"
+    android:layout_height="480px"
+    android:orientation="vertical"
+    android:background="#00ff00"
+        >
+
+    <LinearLayout
+        android:id="@+id/back_layout"
+        android:layout_width="240px"
+        android:layout_height="320px"
+        android:layout_marginLeft="280px"
+        android:layout_marginTop="25px"
+         >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/front_layout"
+        android:layout_width="240px"
+        android:layout_height="320px"
+        android:layout_marginLeft="280px"
+        android:layout_marginTop="25px"
+         >
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_view"
+        android:clickable="false"
+        android:layout_width="740px"
+        android:layout_height="85px"
+        android:layout_marginTop="370px"
+        android:layout_marginLeft="30px"
+        android:textColor="#ffffff"
+        android:text="モンスターがうまれるよ！"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:background="@drawable/border"/>
+</RelativeLayout>

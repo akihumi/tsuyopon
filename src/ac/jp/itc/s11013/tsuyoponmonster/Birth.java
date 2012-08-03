@@ -79,7 +79,7 @@ public class Birth extends Activity {
                 Intent i = new Intent(Birth.this, BringUp.class);
                 i.putExtra("monster", tsuyopon);
 
-                // drawをいったんBitmapに変換,つかわない
+                // drawをいったんBitmapに変換
                 Bitmap bitmap = ((BitmapDrawable) draw).getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -87,6 +87,7 @@ public class Birth extends Activity {
                 i.putExtra("image", b);
                 // BringUpアクティビティに放り投げる
                 startActivity(i);
+                finish();
                 break;
         }
     }
