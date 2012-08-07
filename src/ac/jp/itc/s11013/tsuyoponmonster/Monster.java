@@ -2,10 +2,10 @@
 package ac.jp.itc.s11013.tsuyoponmonster;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Random;
-
-import android.graphics.drawable.Drawable;
 
 // モンスターネームとステータスを保持するクラス.
 // intentにputExtraするためSerializableクラスを実装してる
@@ -28,6 +28,7 @@ public class Monster implements Serializable {
     private String monster_name;
     //    private Drawable monster_image;
     private boolean death_flag;
+    private String id;
 
     public Monster(String name) {
         // 名前が入力されていなければ初期化。。。つかうかどうかわからない
@@ -42,13 +43,27 @@ public class Monster implements Serializable {
         power = rand.nextInt(10) + 20;
         quickness = rand.nextInt(10) + 20;
         luck = rand.nextInt(100) + 1;
-        // なつき度=>30, まんぷく度=>50,じゅみょう=>0で初期は固定
+        // なつき度=>10, まんぷく度=>50,じゅみょう=>0で初期は固定
         life = 0;
-        kind = 30;
+        kind = 10;
         stomach_gauge = 50;
-        // モンスターの画像を決定する
-        //        monster_image = image;
-
+        int tmp = strength + power + quickness + luck + rand.nextInt(1000);
+        id = getHash(new StringBuilder(name).append(tmp).toString());
+    }
+    // 
+    public Monster(String id, String name, int strength, int power, int quickness,
+            int kind, int stomach_gauge, int luck, int life){
+        this.id = id;
+        this.monster_name = name;
+        this.strength = strength;
+        this.power = power;
+        this.quickness = quickness;
+        this.kind = kind;
+        this.stomach_gauge = stomach_gauge;
+        this.luck = luck;
+        this.life = life;
+        death_flag = false;
+        rand = new Random();
     }
 
     // ステータスをHashmapで返す
@@ -66,6 +81,10 @@ public class Monster implements Serializable {
 
     public String getName() {
         return monster_name;
+    }
+
+    public String getId() {
+        return id;
     }
 
     // 走る（速＋５、体ー１〜２, なつき - 2, 満腹度−５, 寿命＋2）
@@ -147,6 +166,32 @@ public class Monster implements Serializable {
         if (life >= STATUS_MAX || stomach_gauge <= STATUS_MIN) {
             death_flag = true;
         }
+    }
+
+    // idを作るメソッド
+    private String getHash(String org) {
+        // 引数・アルゴリズム指定が無い場合は計算しない
+        if (org == null) {
+            return null;
+        }
+        // 初期化
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+        md.reset();
+        md.update(org.getBytes());
+        byte[] hash = md.digest();
+        // ハッシュを16進数文字列に変換
+        StringBuffer sb = new StringBuffer();
+        int cnt = hash.length;
+        for (int i = 0; i < cnt; i++) {
+            sb.append(Integer.toHexString((hash[i] >> 4) & 0x0F));
+            sb.append(Integer.toHexString(hash[i] & 0x0F));
+        }
+        return sb.toString();
     }
 
 }

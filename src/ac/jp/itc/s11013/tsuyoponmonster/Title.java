@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Title extends Activity {
 
@@ -32,6 +34,23 @@ public class Title extends Activity {
         toBattle = (Button) findViewById(R.id.toBattle);
     }
 
+    private boolean flag = true;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (flag) {
+                Toast.makeText(getApplicationContext(), R.string.exit_app, Toast.LENGTH_SHORT)
+                        .show();
+                flag = false;
+                return true;
+            } else {
+                finish();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     // 押されたボタンによって飛ばす場所をかえる
     public void click(View v) {
         Intent i;
@@ -39,6 +58,7 @@ public class Title extends Activity {
             case R.id.toStart:
                 i = new Intent(this, BirthAnime.class);
                 startActivity(i);
+                finish();
                 break;
             case R.id.toContinue:
                 i = new Intent(this, BringUp.class);

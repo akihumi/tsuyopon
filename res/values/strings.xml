@@ -22,5 +22,12 @@
 	<string name="bring_sleep">ねむる</string>
 	<string name="yes">はい</string>
 	<string name="no">いいえ</string>
+	<string name="save_text">保存する場所を選んで下さい。</string>
+	<string name="save_toast_text">保存しました</string>
+	<string name="alert_title">確認</string>
+	<string name="alert_message">保存せずにタイトルへ戻りますか？</string>
+	<string name="birth_message">モンスターデータは保存されませんがよろしいですか？</string>
+	<string name="save_and_title">データを保存してタイトルに戻ります。</string>
+	<string name="exit_app">もう一度おすと終了するよ！</string>
 
 </resources>

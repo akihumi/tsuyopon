@@ -1,15 +1,20 @@
 
 package ac.jp.itc.s11013.tsuyoponmonster;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +29,7 @@ public class BirthAnime extends Activity implements AnimationListener {
     TextView tv;
     // Button nextButton;
     Intent intent;
+    Drawable draw;
 
     /** Called when the activity is first created. */
     @Override
@@ -42,9 +48,13 @@ public class BirthAnime extends Activity implements AnimationListener {
 
         // 画像を呼び出す
         ImageView image1 = new ImageView(this);
-        image1.setImageResource(R.drawable.id_01);
+        image1.setImageResource(R.drawable.egg);
         ImageView image2 = new ImageView(this);
-        image2.setImageResource(R.drawable.id_02);
+        // 画像をランダムで取得
+        TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
+        Random rand = new Random();
+        draw = images.getDrawable(rand.nextInt(14));
+        image2.setImageDrawable(draw);
 
         // linearLayoutに画像をセット
         frontLayout.addView(image1, createParam(WC, WC));
@@ -85,6 +95,12 @@ public class BirthAnime extends Activity implements AnimationListener {
         } catch (InterruptedException e) {
         }
         intent = new Intent(this, Birth.class);
+        // drawをいったんBitmapに変換
+        Bitmap bitmap = ((BitmapDrawable) draw).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        intent.putExtra("image", b);
         startActivity(intent);
         finish();
     }

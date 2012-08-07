@@ -10,9 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +26,13 @@ public class Birth extends Activity {
     private Button input_name;
     private ImageView monster_image;
     private TextView birth_text;
-    private Drawable draw;
     private LayoutInflater inflater;
     private View view;
     private Monster tsuyopon;
     private String monster_name;
     // 同じダイアログは2回作れないっぽいのでオブジェクト保持します
     private AlertDialog name_alert;
+    private Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,11 @@ public class Birth extends Activity {
         input_name = (Button) findViewById(R.id.birth_monstername);
         monster_image = (ImageView) findViewById(R.id.birth_imageView);
         birth_text = (TextView) findViewById(R.id.dummy_birth_text_view);
-        // 画像をランダムで取得
-        TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
-        Random rand = new Random();
-        draw = images.getDrawable(rand.nextInt(14));
-        monster_image.setImageDrawable(draw);
+        // インテントから画像を取得して表示
+        Bundle extras = getIntent().getExtras();
+        byte[] b = extras.getByteArray("image");
+        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        monster_image.setImageBitmap(bmp);
 
         birth_text.setText("モンスターが生まれました。 名前をつけてくだしあ");
         // 名前を設定するダイアログを作っておく
@@ -67,6 +69,30 @@ public class Birth extends Activity {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(R.string.alert_title)
+                    .setMessage(R.string.birth_message)
+                    .setPositiveButton(R.string.yes,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(getApplicationContext(), Title.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     //ボタンを押した時の処理
     public void click(View v) {
         switch (v.getId()) {
@@ -80,9 +106,8 @@ public class Birth extends Activity {
                 i.putExtra("monster", tsuyopon);
 
                 // drawをいったんBitmapに変換
-                Bitmap bitmap = ((BitmapDrawable) draw).getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
                 byte[] b = baos.toByteArray();
                 i.putExtra("image", b);
                 // BringUpアクティビティに放り投げる

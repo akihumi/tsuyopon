@@ -1,7 +1,7 @@
 *.classpath
 *.project
-gen/
-bin/
+
+.settings/
 proguard-project.txt
 project.properties
 # built application files
