@@ -29,5 +29,7 @@
 	<string name="birth_message">モンスターデータは保存されませんがよろしいですか？</string>
 	<string name="save_and_title">データを保存してタイトルに戻ります。</string>
 	<string name="exit_app">もう一度おすと終了するよ！</string>
+	<string name="no_data">No Data</string>
+	<string name="no_continue">続きからはじめるデータがありません</string>
 
 </resources>

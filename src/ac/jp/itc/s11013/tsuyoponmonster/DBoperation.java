@@ -19,7 +19,7 @@ public class DBoperation {
     public static final String CREATE_TABLE =
             "create table " + TABLE_NAME + "(" +
                     android.provider.BaseColumns._ID + " string primary key, " +
-                    IMAGE + " blob, " + MONSTER_NAME + " string, " +
+                    IMAGE + " integer, " + MONSTER_NAME + " string, " +
                     Monster.STATUS_STRENGTH + " integer, " +
                     Monster.STATUS_POWER + " integer, " +
                     Monster.STATUS_QUICKNESS + " integer, " +
@@ -28,7 +28,7 @@ public class DBoperation {
                     Monster.STATUS_LUCK + " integer, " +
                     Monster.STATUS_LIFE + " integer);";
 
-    public static long insert(Context context, byte[] blob, Monster monster) {
+    public static long insert(Context context, int image, Monster monster) {
         HashMap<String, Integer> status = monster.getStatusList();
         SQLiteDatabase db = null;
         long result = 0;
@@ -37,7 +37,7 @@ public class DBoperation {
             db = monsterdb.getWritableDatabase();
             ContentValues cv = new ContentValues(10);
             cv.put(android.provider.BaseColumns._ID, monster.getId());
-            cv.put(IMAGE, blob);
+            cv.put(IMAGE, image);
             cv.put(MONSTER_NAME, monster.getName());
             cv.put(Monster.STATUS_STRENGTH, status.get(Monster.STATUS_STRENGTH));
             cv.put(Monster.STATUS_POWER, status.get(Monster.STATUS_POWER));
@@ -46,19 +46,19 @@ public class DBoperation {
             cv.put(Monster.STATUS_STOMACH_GAUGE, status.get(Monster.STATUS_STOMACH_GAUGE));
             cv.put(Monster.STATUS_LUCK, status.get(Monster.STATUS_LUCK));
             cv.put(Monster.STATUS_LIFE, status.get(Monster.STATUS_LIFE));
-            result =  db.insert(TABLE_NAME, null, cv);
-//
-//            String sql = "insert into " + TABLE_NAME +" (" +
-//            android.provider.BaseColumns._ID + ", " + IMAGE + ", " + MONSTER_NAME +
-//            Monster.STATUS_STRENGTH + ", " + Monster.STATUS_POWER + ", " +
-//            Monster.STATUS_QUICKNESS + ", " + Monster.STATUS_KIND +", " +
-//            Monster.STATUS_STOMACH_GAUGE + ", " + Monster.STATUS_LUCK + ", " +
-//            Monster.STATUS_LIFE + ") " + "values(\'" + monster.getId() + "\', " + blob + ", \'" +
-//            monster.getName() + "\', " + status.get(Monster.STATUS_STRENGTH) + ", " +
-//            status.get(Monster.STATUS_POWER) + ", " + status.get(Monster.STATUS_QUICKNESS) + ", " +
-//            status.get(Monster.STATUS_KIND) + ", " + status.get(Monster.STATUS_STOMACH_GAUGE) + ", " +
-//            status.get(Monster.STATUS_LUCK) + ", " +status.get(Monster.STATUS_LIFE) + ");";
-//            db.execSQL(sql);
+            result = db.insert(TABLE_NAME, null, cv);
+            //
+            //            String sql = "insert into " + TABLE_NAME +" (" +
+            //            android.provider.BaseColumns._ID + ", " + IMAGE + ", " + MONSTER_NAME +
+            //            Monster.STATUS_STRENGTH + ", " + Monster.STATUS_POWER + ", " +
+            //            Monster.STATUS_QUICKNESS + ", " + Monster.STATUS_KIND +", " +
+            //            Monster.STATUS_STOMACH_GAUGE + ", " + Monster.STATUS_LUCK + ", " +
+            //            Monster.STATUS_LIFE + ") " + "values(\'" + monster.getId() + "\', " + blob + ", \'" +
+            //            monster.getName() + "\', " + status.get(Monster.STATUS_STRENGTH) + ", " +
+            //            status.get(Monster.STATUS_POWER) + ", " + status.get(Monster.STATUS_QUICKNESS) + ", " +
+            //            status.get(Monster.STATUS_KIND) + ", " + status.get(Monster.STATUS_STOMACH_GAUGE) + ", " +
+            //            status.get(Monster.STATUS_LUCK) + ", " +status.get(Monster.STATUS_LIFE) + ");";
+            //            db.execSQL(sql);
         } catch (SQLException e) {
             Log.e("ERROR", e.toString());
         } finally {
@@ -68,7 +68,8 @@ public class DBoperation {
         }
         return result;
     }
-    public static byte[] getBlob(Context context, String id) {
+
+    public static int getImage(Context context, String id) {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
@@ -76,12 +77,14 @@ public class DBoperation {
             db = monsterdb.getReadableDatabase();
             String sql = String.format("select %s from %s where %s = ?",
                     IMAGE, TABLE_NAME, android.provider.BaseColumns._ID);
-            String[] args = {id};
+            String[] args = {
+                id
+            };
             cursor = db.rawQuery(sql, args);
             if (cursor.moveToFirst()) {
-                return cursor.getBlob(0);
+                return cursor.getInt(0);
             }
-            return null;
+            return -1;
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -91,48 +94,56 @@ public class DBoperation {
             }
         }
     }
-    public static Monster getMonster(Context context, String id){
+
+    public static Monster getMonster(Context context, String id) {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         Monster monster = null;
-        try{
+        try {
             MonstersData monstersdb = new MonstersData(context);
             db = monstersdb.getReadableDatabase();
-            String sql = String.format("select %s, %s, %s, %s, %s, %s, %s, %s from %s where %s = ?",
+            String sql = String.format(
+                    "select %s, %s, %s, %s, %s, %s, %s, %s from %s where %s = ?",
                     MONSTER_NAME, Monster.STATUS_STRENGTH, Monster.STATUS_POWER,
                     Monster.STATUS_QUICKNESS, Monster.STATUS_KIND, Monster.STATUS_STOMACH_GAUGE,
-                    Monster.STATUS_LUCK, Monster.STATUS_LIFE, TABLE_NAME, android.provider.BaseColumns._ID);
-            String[] columns = {id};
+                    Monster.STATUS_LUCK, Monster.STATUS_LIFE, TABLE_NAME,
+                    android.provider.BaseColumns._ID);
+            String[] columns = {
+                id
+            };
             cursor = db.rawQuery(sql, columns);
             monster = new Monster(id, cursor.getString(0), cursor.getInt(1),
                     cursor.getInt(2), cursor.getInt(3), cursor.getInt(4),
                     cursor.getInt(5), cursor.getInt(6), cursor.getInt(7));
-        }finally{
-            if(db != null){
+        } finally {
+            if (db != null) {
                 db.close();
             }
         }
         return monster;
     }
-    public static ArrayList<String> getId(Context context){
+
+    public static ArrayList<String> getId(Context context) {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         ArrayList<String> id_list = new ArrayList<String>();
-        try{
+        try {
             MonstersData monstersdb = new MonstersData(context);
             db = monstersdb.getReadableDatabase();
-            String[] culumns = {android.provider.BaseColumns._ID};
+            String[] culumns = {
+                android.provider.BaseColumns._ID
+            };
             String sql = String.format("select ? from %s",
                     TABLE_NAME);
             cursor = db.rawQuery(sql, culumns);
-            while(cursor.moveToNext()){
-                
+            while (cursor.moveToNext()) {
+                id_list.add(cursor.getString(0));
             }
-        }finally{
-            if(db != null){
+        } finally {
+            if (db != null) {
                 db.close();
             }
         }
-        return null;
+        return id_list;
     }
 }

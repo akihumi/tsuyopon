@@ -7,8 +7,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,7 +21,6 @@ import android.widget.TextView;
 public class Dead extends Activity {
 
     private Monster tsuyopon;
-    private Bitmap bmp;
     private Button dead_yes, dead_no;
     private TextView dead_text;
     private ImageView dead_image;
@@ -33,13 +34,15 @@ public class Dead extends Activity {
         dead_no = (Button) findViewById(R.id.dead_no);
         dead_text = (TextView) findViewById(R.id.dead_textview);
         dead_image = (ImageView) findViewById(R.id.dead_monster_image);
-        // インテントのデータを取得
-        Bundle extras = getIntent().getExtras();
-        byte[] b = extras.getByteArray("image");
-        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+//         インテントのデータを取得
+//        Bundle extras = getIntent().getExtras();
+//        byte[] b = extras.getByteArray("image");
+//        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
+        Drawable draw = images.getDrawable(getIntent().getExtras().getInt("image"));
         tsuyopon = (Monster) getIntent().getSerializableExtra("monster");
 
-        dead_image.setImageBitmap(bmp);
+        dead_image.setImageDrawable(draw);
         dead_text.setText(String.format("%sはお腹が空きすぎて逃げ出しました...\n%<sのデータを保存しますか？",
                 tsuyopon.getName()));
         if (tsuyopon.getStatusList().get(Monster.STATUS_LIFE) >= Monster.STATUS_MAX) {
@@ -76,10 +79,12 @@ public class Dead extends Activity {
         switch (v.getId()) {
             case R.id.dead_yes:
                 i = new Intent(this, SaveMonster.class);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] b = baos.toByteArray();
-                i.putExtra("image", b);
+//                   bitmapを変換
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//                byte[] b = baos.toByteArray();
+//                i.putExtra("image", b);
+                i.putExtra("image", getIntent().getExtras().getInt("image"));
                 i.putExtra("monster", tsuyopon);
                 startActivity(i);
                 finish();

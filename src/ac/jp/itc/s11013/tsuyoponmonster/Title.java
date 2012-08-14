@@ -5,6 +5,7 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,12 +18,15 @@ import android.widget.Toast;
 
 public class Title extends Activity {
 
+    private boolean flag;
     private Button toStart, toContinue, toBattle;
+    public static final String PREF_KEY = "preferences_key";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.title);
+        flag = true;
         Random rand = new Random();
         // array.xmlからタイトルに表示する画像をランダムで取ってくる
         TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
@@ -33,8 +37,6 @@ public class Title extends Activity {
         toContinue = (Button) findViewById(R.id.toContinue);
         toBattle = (Button) findViewById(R.id.toBattle);
     }
-
-    private boolean flag = true;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -61,8 +63,22 @@ public class Title extends Activity {
                 finish();
                 break;
             case R.id.toContinue:
+                SharedPreferences pref = getSharedPreferences(PREF_KEY, Activity.MODE_PRIVATE);
+                if(pref.getString("id", "0").equals("0")){
+                    Toast.makeText(getApplicationContext(), R.string.no_continue, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Monster tsuyopon = new Monster(pref.getString("id", "0"), pref.getString("name", "hoge"),
+                        pref.getInt(Monster.STATUS_STRENGTH, 0), pref.getInt(Monster.STATUS_POWER, 0),
+                        pref.getInt(Monster.STATUS_QUICKNESS, 0), pref.getInt(Monster.STATUS_KIND, 0),
+                        pref.getInt(Monster.STATUS_STOMACH_GAUGE, 0), pref.getInt(Monster.STATUS_LUCK, 0),
+                        pref.getInt(Monster.STATUS_LIFE, 0));
                 i = new Intent(this, BringUp.class);
+                i.putExtra("monster", tsuyopon);
+                i.putExtra("image", pref.getInt("image", 0));
+                
                 startActivity(i);
+                finish();
                 break;
             case R.id.toBattle:
                 i = new Intent(this, PreparationForBattle.class);

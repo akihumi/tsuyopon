@@ -32,7 +32,6 @@ public class Birth extends Activity {
     private String monster_name;
     // 同じダイアログは2回作れないっぽいのでオブジェクト保持します
     private AlertDialog name_alert;
-    private Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +45,12 @@ public class Birth extends Activity {
         monster_image = (ImageView) findViewById(R.id.birth_imageView);
         birth_text = (TextView) findViewById(R.id.dummy_birth_text_view);
         // インテントから画像を取得して表示
-        Bundle extras = getIntent().getExtras();
-        byte[] b = extras.getByteArray("image");
-        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
-        monster_image.setImageBitmap(bmp);
+//        Bundle extras = getIntent().getExtras();
+//        byte[] b = extras.getByteArray("image");
+//        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
+        Drawable draw = images.getDrawable(getIntent().getExtras().getInt("image"));
+        monster_image.setImageDrawable(draw);
 
         birth_text.setText("モンスターが生まれました。 名前をつけてくだしあ");
         // 名前を設定するダイアログを作っておく
@@ -100,16 +101,18 @@ public class Birth extends Activity {
                 name_alert.show();
                 break;
             case R.id.birth_yes:
+                // tsuyoponをいんてんとに入れる
                 monster_name = input_name.getText().toString();
                 tsuyopon = new Monster(monster_name);
                 Intent i = new Intent(Birth.this, BringUp.class);
                 i.putExtra("monster", tsuyopon);
 
                 // drawをいったんBitmapに変換
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] b = baos.toByteArray();
-                i.putExtra("image", b);
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//                byte[] b = baos.toByteArray();
+//                i.putExtra("image", b);
+                i.putExtra("image", getIntent().getExtras().getInt("image"));
                 // BringUpアクティビティに放り投げる
                 startActivity(i);
                 finish();

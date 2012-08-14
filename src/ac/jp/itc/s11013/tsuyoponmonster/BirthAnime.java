@@ -21,15 +21,14 @@ import android.widget.TextView;
 
 public class BirthAnime extends Activity implements AnimationListener {
 
+    private static final int IMAGE_NUMBER = 14;
     private final int FP = ViewGroup.LayoutParams.FILL_PARENT;
     private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
-    ViewGroup relativeLayout;
-    ViewGroup frontLayout;
-    ViewGroup backLayout;
-    TextView tv;
-    // Button nextButton;
-    Intent intent;
-    Drawable draw;
+    private ViewGroup relativeLayout;
+    private ViewGroup frontLayout;
+    private ViewGroup backLayout;
+    private TextView tv;
+    private int image_number;
 
     /** Called when the activity is first created. */
     @Override
@@ -52,8 +51,8 @@ public class BirthAnime extends Activity implements AnimationListener {
         ImageView image2 = new ImageView(this);
         // 画像をランダムで取得
         TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
-        Random rand = new Random();
-        draw = images.getDrawable(rand.nextInt(14));
+        image_number = new Random().nextInt(IMAGE_NUMBER);
+        Drawable draw = images.getDrawable(image_number);
         image2.setImageDrawable(draw);
 
         // linearLayoutに画像をセット
@@ -88,6 +87,7 @@ public class BirthAnime extends Activity implements AnimationListener {
     // zoomアニメーション終了時の処理
     public void onAnimationEnd(Animation animation) {
 
+        Intent intent;
         tv.setText("モンスターが生まれました");
         relativeLayout.setClickable(true);
         try {
@@ -96,11 +96,12 @@ public class BirthAnime extends Activity implements AnimationListener {
         }
         intent = new Intent(this, Birth.class);
         // drawをいったんBitmapに変換
-        Bitmap bitmap = ((BitmapDrawable) draw).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        intent.putExtra("image", b);
+//        Bitmap bitmap = ((BitmapDrawable) draw).getBitmap();
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//        byte[] b = baos.toByteArray();
+//        intent.putExtra("image", b);
+        intent.putExtra("image", image_number);
         startActivity(intent);
         finish();
     }

@@ -1,16 +1,16 @@
 
 package ac.jp.itc.s11013.tsuyoponmonster;
 
-import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -30,17 +30,20 @@ public class BringUp extends Activity {
             strength_change, power_change, quickness_change, kind_change,
             stomach_gauge_change, luck_change, life_change, bring_textview,
             bring_monster_name;
-    private Bitmap bmp;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bring_up);
         // 画像を取得
-        Bundle extras = getIntent().getExtras();
-        byte[] b = extras.getByteArray("image");
-
-        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+//        Bundle extras = getIntent().getExtras();
+//        byte[] b = extras.getByteArray("image");
+//        bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
+        Drawable draw = images.getDrawable(getIntent().getExtras().getInt("image"));
         // モンスタークラスのインスタンス
         tsuyopon = (Monster) getIntent().getSerializableExtra("monster");
         // モンスターの名前と画像を設定
@@ -75,7 +78,7 @@ public class BringUp extends Activity {
         bring_textview = (TextView) findViewById(R.id.bring_textview);
         // モンスターの画像と名前を入れる
         //        bring_monster_image.setImageDrawable(tsuyopon.getImage());
-        bring_monster_image.setImageBitmap(bmp);
+        bring_monster_image.setImageDrawable(draw);
         bring_monster_name.setText(new StringBuilder("もんすたー名: ")
                 .append(tsuyopon.getName()).toString());
         // tsuyoponからステータス表示の数値を取得
@@ -94,7 +97,21 @@ public class BringUp extends Activity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    
+                                    HashMap<String, Integer> status = tsuyopon.getStatusList();
+                                    SharedPreferences pref = getSharedPreferences(Title.PREF_KEY, Activity.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    // モンスターのデータを記憶しておく
+                                    editor.putString("id", tsuyopon.getId());
+                                    editor.putString("name", tsuyopon.getName());
+                                    editor.putInt("image", getIntent().getExtras().getInt("image"));
+                                    editor.putInt(Monster.STATUS_STRENGTH, status.get(Monster.STATUS_STRENGTH));
+                                    editor.putInt(Monster.STATUS_POWER, status.get(Monster.STATUS_POWER));
+                                    editor.putInt(Monster.STATUS_QUICKNESS, status.get(Monster.STATUS_QUICKNESS));
+                                    editor.putInt(Monster.STATUS_QUICKNESS, status.get(Monster.STATUS_KIND));
+                                    editor.putInt(Monster.STATUS_STOMACH_GAUGE, status.get(Monster.STATUS_STOMACH_GAUGE));
+                                    editor.putInt(Monster.STATUS_LUCK, status.get(Monster.STATUS_LUCK));
+                                    editor.putInt(Monster.STATUS_LIFE, status.get(Monster.STATUS_LIFE));
+                                    editor.commit();
                                     Intent i = new Intent(getApplicationContext(), Title.class);
                                     startActivity(i);
                                     finish();
@@ -174,11 +191,15 @@ public class BringUp extends Activity {
         }
         if (tsuyopon.isDeath()) {
             Intent i = new Intent(this, Dead.class);
-            // バイト配列に変換する
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] b = baos.toByteArray();
-            i.putExtra("image", b);
+//            // バイト配列に変換する
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//            byte[] b = baos.toByteArray();
+//            i.putExtra("image", b);
+            pref = getSharedPreferences(Title.PREF_KEY, Activity.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.clear().commit();
+            i.putExtra("image", getIntent().getExtras().getInt("image"));
             i.putExtra("monster", tsuyopon);
             startActivity(i);
             finish();

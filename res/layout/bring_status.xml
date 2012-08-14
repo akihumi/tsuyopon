@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
 	android:layout_height="fill_parent"
-	android:layout_marginTop="@dimen/padding_small"
+	android:layout_marginTop="@dimen/padding_small_small"
 	android:background="@drawable/border"
 	android:orientation="horizontal" >
 
@@ -96,37 +96,37 @@
 		<TextView
 			android:id="@+id/strength"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 
 		<TextView
 			android:id="@+id/power"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 
 		<TextView
 			android:id="@+id/quickness"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 
 		<TextView
 			android:id="@+id/kind"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 
 		<TextView
 			android:id="@+id/stomach_gauge"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 
 		<TextView
 			android:id="@+id/luck"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 
 		<TextView
 			android:id="@+id/life"
 			style="@style/viewPadding"
-			android:text="0" />
+			android:text="20" />
 	</LinearLayout>
 
 </LinearLayout>

@@ -25,13 +25,16 @@
             	<include
             		layout="@layout/bring_up_image_name" />
 
-            	<include layout="@layout/bring_status" />
+            	<include
+            		android:layout_width="fill_parent"
+            		layout="@layout/bring_status" />
+
             </LinearLayout>
 
             <TextView
             	android:id="@+id/bring_textview"
             	android:layout_width="fill_parent"
-            	android:layout_height="66dp"
+            	android:layout_height="60dp"
             	android:layout_marginTop="@dimen/padding_small_small"
             	android:layout_marginLeft="@dimen/padding_small_small"
             	android:layout_marginBottom="@dimen/padding_small_small"
