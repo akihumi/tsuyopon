@@ -94,6 +94,7 @@ public class BringUp extends Activity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    
                                     Intent i = new Intent(getApplicationContext(), Title.class);
                                     startActivity(i);
                                     finish();

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relative_layout"
-    android:layout_width="800px"
-    android:layout_height="480px"
+    android:layout_width="533dp"
+    android:layout_height="320dp"
     android:orientation="vertical"
     android:background="#00ff00"
         >
 
     <LinearLayout
         android:id="@+id/back_layout"
-        android:layout_width="240px"
-        android:layout_height="320px"
-        android:layout_marginLeft="280px"
-        android:layout_marginTop="25px"
+        android:layout_width="160dp"
+        android:layout_height="213dp"
+        android:layout_marginLeft="187dp"
+        android:layout_marginTop="17dp"
          >
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/front_layout"
-        android:layout_width="240px"
-        android:layout_height="320px"
-        android:layout_marginLeft="280px"
-        android:layout_marginTop="25px"
+        android:layout_width="160dp"
+        android:layout_height="213dp"
+        android:layout_marginLeft="187dp"
+        android:layout_marginTop="17dp"
          >
     </LinearLayout>
 
     <TextView
         android:id="@+id/text_view"
         android:clickable="false"
-        android:layout_width="740px"
-        android:layout_height="85px"
-        android:layout_marginTop="370px"
-        android:layout_marginLeft="30px"
+        android:layout_width="493dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="20dp"
         android:textColor="#ffffff"
         android:text="モンスターがうまれるよ！"
         android:textSize="40sp"
