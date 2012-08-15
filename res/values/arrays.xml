@@ -16,6 +16,18 @@
 		<item>@drawable/id_12</item>
 		<item>@drawable/id_13</item>
 		<item>@drawable/id_14</item>
-</array>
+	</array>
+	<array name="data">
+		<item>@+id/data1</item>
+		<item>@+id/data2</item>
+		<item>@+id/data3</item>
+		<item>@+id/data4</item>
+		<item>@+id/data5</item>
+		<item>@+id/data6</item>
+		<item>@+id/data7</item>
+		<item>@+id/data8</item>
+		<item>@+id/data9</item>
+		<item>@+id/data10</item>
+	</array>
 
 </resources>

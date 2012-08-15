@@ -4,24 +4,179 @@
 	android:layout_height="fill_parent"
 	android:background="#00FF00" >
 
-	<TextView
+	<ImageView
 		android:id="@+id/mpicture"
 		android:layout_width="120dp"
 		android:layout_height="160dp"
 		android:layout_marginLeft="17dp"
 		android:layout_marginTop="20dp"
 		android:background="#999999"
-		android:text="モンスター画像" />
+		android:src="@drawable/kimokawa" />
 
-	<TextView
-		android:id="@+id/pra"
+					<TableLayout
+						xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="93dp"
 		android:layout_height="160dp"
 		android:layout_marginLeft="156dp"
 		android:layout_marginTop="20dp"
-		android:background="#999999"
-		android:text="パラメータ画面" />
+		android:background="#999999">
 
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="　　   HP :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_hp_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="56"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="こうげき :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_atk_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="13"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="すばやさ :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_spd_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="5"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="なつき度 :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_kind_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="22"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="まんぷく :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_satomach_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="30"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="　　　運 :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_luck_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="20"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+
+						<TableRow
+							android:layout_weight="1"
+							android:gravity="center" >
+
+							<TextView
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="ねんれい :"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+
+							<TextView
+								android:id="@+id/pfb_age_view"
+								android:layout_width="fill_parent"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="28"
+								android:textColor="#FFFFFF"
+								android:textSize="10sp" />
+						</TableRow>
+					</TableLayout>
+	
+	
 	<Spinner
 		android:id="@+id/aite"
 		android:layout_width="233dp"
@@ -68,6 +223,7 @@
 		android:layout_width="233dp"
 		android:layout_height="60dp"
 		android:layout_alignLeft="@+id/mpicture"
-		android:layout_alignParentBottom="true" />
+		android:layout_alignParentBottom="true"
+		android:prompt="@string/prompt" />
 
 </RelativeLayout>

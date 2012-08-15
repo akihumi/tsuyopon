@@ -28,6 +28,30 @@ public class DBoperation {
                     Monster.STATUS_LUCK + " integer, " +
                     Monster.STATUS_LIFE + " integer);";
 
+    public static ArrayList<String> getId(Context context) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        ArrayList<String> id_list = new ArrayList<String>();
+        try {
+            MonstersData monstersdb = new MonstersData(context);
+            db = monstersdb.getReadableDatabase();
+            String sql = String.format("select "+ android.provider.BaseColumns._ID +" from %s;",
+                    TABLE_NAME);
+            cursor = db.rawQuery(sql, null);
+            cursor.moveToFirst();
+            while (cursor.moveToNext()) {
+                Log.v("hoge", cursor.getString(0));
+                id_list.add(cursor.getString(0));
+            }
+        } finally {
+            if (db != null) {
+                cursor.close();
+                db.close();
+            }
+        }
+        return id_list;
+    }
+
     public static long insert(Context context, int image, Monster monster) {
         HashMap<String, Integer> status = monster.getStatusList();
         SQLiteDatabase db = null;
@@ -75,12 +99,9 @@ public class DBoperation {
         try {
             MonstersData monsterdb = new MonstersData(context);
             db = monsterdb.getReadableDatabase();
-            String sql = String.format("select %s from %s where %s = ?",
+            String sql = String.format("select %s from %s where %s = '"+ id +"';",
                     IMAGE, TABLE_NAME, android.provider.BaseColumns._ID);
-            String[] args = {
-                id
-            };
-            cursor = db.rawQuery(sql, args);
+            cursor = db.rawQuery(sql, null);
             if (cursor.moveToFirst()) {
                 return cursor.getInt(0);
             }
@@ -103,15 +124,13 @@ public class DBoperation {
             MonstersData monstersdb = new MonstersData(context);
             db = monstersdb.getReadableDatabase();
             String sql = String.format(
-                    "select %s, %s, %s, %s, %s, %s, %s, %s from %s where %s = ?",
+                    "select %s, %s, %s, %s, %s, %s, %s, %s from %s where %s = '"+ id +"';",
                     MONSTER_NAME, Monster.STATUS_STRENGTH, Monster.STATUS_POWER,
                     Monster.STATUS_QUICKNESS, Monster.STATUS_KIND, Monster.STATUS_STOMACH_GAUGE,
                     Monster.STATUS_LUCK, Monster.STATUS_LIFE, TABLE_NAME,
                     android.provider.BaseColumns._ID);
-            String[] columns = {
-                id
-            };
-            cursor = db.rawQuery(sql, columns);
+            cursor = db.rawQuery(sql, null);
+            cursor.moveToFirst();
             monster = new Monster(id, cursor.getString(0), cursor.getInt(1),
                     cursor.getInt(2), cursor.getInt(3), cursor.getInt(4),
                     cursor.getInt(5), cursor.getInt(6), cursor.getInt(7));
@@ -121,29 +140,5 @@ public class DBoperation {
             }
         }
         return monster;
-    }
-
-    public static ArrayList<String> getId(Context context) {
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        ArrayList<String> id_list = new ArrayList<String>();
-        try {
-            MonstersData monstersdb = new MonstersData(context);
-            db = monstersdb.getReadableDatabase();
-            String[] culumns = {
-                android.provider.BaseColumns._ID
-            };
-            String sql = String.format("select ? from %s",
-                    TABLE_NAME);
-            cursor = db.rawQuery(sql, culumns);
-            while (cursor.moveToNext()) {
-                id_list.add(cursor.getString(0));
-            }
-        } finally {
-            if (db != null) {
-                db.close();
-            }
-        }
-        return id_list;
     }
 }

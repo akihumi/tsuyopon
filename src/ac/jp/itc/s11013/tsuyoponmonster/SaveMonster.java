@@ -1,6 +1,7 @@
 
 package ac.jp.itc.s11013.tsuyoponmonster;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -8,10 +9,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -57,10 +57,10 @@ public class SaveMonster extends Activity {
         // インテントのデータを取得
         tsuyopon = (Monster) getIntent().getSerializableExtra("monster");
         HashMap<String, Integer> status = tsuyopon.getStatusList();
-//        Bundle extras = getIntent().getExtras();
-//        blob = extras.getByteArray("image");
-//        // ビットマップに変換
-//        Bitmap bmp = BitmapFactory.decodeByteArray(blob, 0, blob.length);
+        //        Bundle extras = getIntent().getExtras();
+        //        blob = extras.getByteArray("image");
+        //        // ビットマップに変換
+        //        Bitmap bmp = BitmapFactory.decodeByteArray(blob, 0, blob.length);
         TypedArray images = getResources().obtainTypedArray(R.array.monster_image);
         Drawable draw = images.getDrawable(getIntent().getExtras().getInt("image"));
         save_image_view.setImageDrawable(draw);
@@ -72,34 +72,51 @@ public class SaveMonster extends Activity {
         save_luck_view.setText(status.get(Monster.STATUS_LUCK).toString());
         save_life_view.setText(status.get(Monster.STATUS_LIFE).toString());
         save_text_view.setText(R.string.save_text);
+
+        // 保存しているモンスターの名前を表示
+        ArrayList<String> id_list = DBoperation.getId(getApplicationContext());
+        TypedArray num = getResources().obtainTypedArray(R.array.data);
+        int i = 0;
+        for (String s : id_list) {
+            Monster mon = DBoperation.getMonster(getApplicationContext(), s);
+            Button saved_button = (Button) findViewById(num.getResourceId(i++, 0));
+            saved_button.setText(mon.getName());
+        }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle(R.string.alert_title)
-            .setMessage(R.string.alert_message)
-            .setPositiveButton(R.string.yes,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(getApplicationContext(), Title.class);
-                            startActivity(i);
-                            finish();
-                        }
-                    })
-            .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            }).show();
+                    .setMessage(R.string.alert_message)
+                    .setPositiveButton(R.string.yes,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(getApplicationContext(), Title.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton(R.string.no,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).show();
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public void onClick(View v){
-        DBoperation.insert(getApplicationContext(),getIntent().getExtras().getInt("image"), tsuyopon);
-        Toast.makeText(getApplicationContext(), R.string.save_toast_text, Toast.LENGTH_SHORT).show();
+    public void onClick(View v) {
+        DBoperation.insert(getApplicationContext(),
+                getIntent().getExtras().getInt("image"),
+                tsuyopon);
+        Toast.makeText(getApplicationContext(),
+                R.string.save_toast_text,
+                Toast.LENGTH_SHORT)
+                .show();
         Intent i = new Intent(this, Title.class);
         startActivity(i);
         finish();
