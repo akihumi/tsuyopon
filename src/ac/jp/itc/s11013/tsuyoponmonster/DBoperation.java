@@ -52,10 +52,9 @@ public class DBoperation {
         return id_list;
     }
 
-    public static long insert(Context context, int image, Monster monster) {
+    public static void insert(Context context, int image, Monster monster) {
         HashMap<String, Integer> status = monster.getStatusList();
         SQLiteDatabase db = null;
-        long result = 0;
         try {
             MonstersData monsterdb = new MonstersData(context);
             db = monsterdb.getWritableDatabase();
@@ -70,7 +69,7 @@ public class DBoperation {
             cv.put(Monster.STATUS_STOMACH_GAUGE, status.get(Monster.STATUS_STOMACH_GAUGE));
             cv.put(Monster.STATUS_LUCK, status.get(Monster.STATUS_LUCK));
             cv.put(Monster.STATUS_LIFE, status.get(Monster.STATUS_LIFE));
-            result = db.insert(TABLE_NAME, null, cv);
+            db.insert(TABLE_NAME, null, cv);
             //
             //            String sql = "insert into " + TABLE_NAME +" (" +
             //            android.provider.BaseColumns._ID + ", " + IMAGE + ", " + MONSTER_NAME +
@@ -90,7 +89,23 @@ public class DBoperation {
                 db.close();
             }
         }
-        return result;
+    }
+    public static void delete(Context context, String id){
+        SQLiteDatabase db = null;
+        StringBuilder where = null;
+        try {
+            where = new StringBuilder(android.provider.BaseColumns._ID);
+            where.append(" = '").append(id).append("'");
+            MonstersData monsterdb = new MonstersData(context);
+            db = monsterdb.getWritableDatabase();
+            db.delete(TABLE_NAME, where.toString(), null);
+        } catch (SQLException e) {
+            Log.e("ERROR", e.toString());
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
     }
 
     public static int getImage(Context context, String id) {
@@ -140,5 +155,37 @@ public class DBoperation {
             }
         }
         return monster;
+    }
+    // 保存しているモンスターを配列で返すメソッド。
+    public static ArrayList<Monster> getMonsters(Context context, ArrayList<String> ids){
+        ArrayList<Monster> monsters = null;
+        Monster monster = null;
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            MonstersData monstersdb = new MonstersData(context);
+            db = monstersdb.getReadableDatabase();
+            monsters = new ArrayList<Monster>();
+            for (String id : ids) {
+                String sql = String.format(
+                        "select %s, %s, %s, %s, %s, %s, %s, %s from %s where %s = '" + id + "';",
+                        MONSTER_NAME, Monster.STATUS_STRENGTH, Monster.STATUS_POWER,
+                        Monster.STATUS_QUICKNESS, Monster.STATUS_KIND,
+                        Monster.STATUS_STOMACH_GAUGE,
+                        Monster.STATUS_LUCK, Monster.STATUS_LIFE, TABLE_NAME,
+                        android.provider.BaseColumns._ID);
+                cursor = db.rawQuery(sql, null);
+                cursor.moveToFirst();
+                monster = new Monster(id, cursor.getString(0), cursor.getInt(1),
+                        cursor.getInt(2), cursor.getInt(3), cursor.getInt(4),
+                        cursor.getInt(5), cursor.getInt(6), cursor.getInt(7));
+                monsters.add(monster);
+            }
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+        return monsters;
     }
 }

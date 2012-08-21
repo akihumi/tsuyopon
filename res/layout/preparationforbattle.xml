@@ -178,45 +178,29 @@
 	
 	
 	<Spinner
-		android:id="@+id/aite"
+		android:id="@+id/pared_device"
 		android:layout_width="233dp"
 		android:layout_height="60dp"
 		android:layout_marginLeft="290dp"
 		android:layout_marginTop="20dp" />
 
 	<Button
-		android:id="@+id/aButton"
+		android:id="@+id/register_button"
 		android:layout_width="233dp"
 		android:layout_height="40dp"
 		android:layout_marginLeft="290dp"
 		android:layout_marginTop="100dp"
+		android:onClick="click_button"
 		android:text="新しく対戦相手を登録する" />
 
 	<TextView
-		android:id="@+id/aTextView"
+		android:id="@+id/address_disp"
 		android:layout_width="233dp"
 		android:layout_height="67dp"
 		android:layout_marginLeft="290dp"
 		android:layout_marginTop="160dp"
 		android:background="#999999"
 		android:text="バトルに出るモンスターと対戦相手を選択してください" />
-
-	<Button
-		android:id="@+id/sanka"
-		android:layout_width="100dp"
-		android:layout_height="40dp"
-		android:layout_alignParentBottom="true"
-		android:layout_alignRight="@+id/aTextView"
-		android:text="参加" />
-
-	<Button
-		android:id="@+id/bosyu"
-		android:layout_width="100dp"
-		android:layout_height="40dp"
-		android:layout_alignLeft="@+id/aTextView"
-		android:layout_alignParentBottom="true"
-		android:layout_marginLeft="15dp"
-		android:text="応募" />
 
 	<Spinner
 		android:id="@+id/monsterselect1"
@@ -225,5 +209,23 @@
 		android:layout_alignLeft="@+id/mpicture"
 		android:layout_alignParentBottom="true"
 		android:prompt="@string/prompt" />
+
+	<Button
+		android:id="@+id/sanka"
+		android:layout_width="100dp"
+		android:layout_height="40dp"
+		android:layout_alignLeft="@+id/address_disp"
+		android:layout_alignParentBottom="true"
+		android:onClick="click_button"
+		android:text="参加" />
+
+	<Button
+		android:id="@+id/bosyu"
+		android:layout_width="100dp"
+		android:layout_height="40dp"
+		android:layout_alignParentBottom="true"
+		android:layout_alignRight="@+id/address_disp"
+		android:onClick="click_button"
+		android:text="募集" />
 
 </RelativeLayout>

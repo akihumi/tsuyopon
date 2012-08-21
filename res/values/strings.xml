@@ -29,9 +29,15 @@
 	<string name="birth_message">モンスターデータは保存されませんがよろしいですか？</string>
 	<string name="save_and_title">データを保存してタイトルに戻ります。</string>
 	<string name="exit_app">もう一度おすと終了するよ！</string>
-	<string name="no_data">No Data</string>
+	<string name="no_data">NO DATA</string>
 	<string name="no_continue">続きからはじめるデータがありません</string>
 	<string name="saved_monster">モンスター一覧</string>
 	<string name="prompt">戦わすモンスターの選択</string>
-
+	<string name="cancel_bt">bluetoothをonにしないと対戦できないですぅ</string>
+	<string name="title_other_devices">対戦相手を探しています</string>
+	<string name="scanning">しばらくお待ち下さい</string>
+	<string name="rewrite">データを書き換えます,よろしいですか</string>
+	<string name="none_found">みつかりませんでした</string>
+	<string name="select_device">登録するデバイスを選択してください</string>
+	<string name="ensure">相手に自分の端末を検出できるようにする</string>
 </resources>

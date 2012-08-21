@@ -107,7 +107,7 @@ public class BringUp extends Activity {
                                     editor.putInt(Monster.STATUS_STRENGTH, status.get(Monster.STATUS_STRENGTH));
                                     editor.putInt(Monster.STATUS_POWER, status.get(Monster.STATUS_POWER));
                                     editor.putInt(Monster.STATUS_QUICKNESS, status.get(Monster.STATUS_QUICKNESS));
-                                    editor.putInt(Monster.STATUS_QUICKNESS, status.get(Monster.STATUS_KIND));
+                                    editor.putInt(Monster.STATUS_KIND, status.get(Monster.STATUS_KIND));
                                     editor.putInt(Monster.STATUS_STOMACH_GAUGE, status.get(Monster.STATUS_STOMACH_GAUGE));
                                     editor.putInt(Monster.STATUS_LUCK, status.get(Monster.STATUS_LUCK));
                                     editor.putInt(Monster.STATUS_LIFE, status.get(Monster.STATUS_LIFE));
